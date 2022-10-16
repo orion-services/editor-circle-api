@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
 @Getter
 @Setter
-@Table(name = "Groups")
+@Table(name = "_Group")
 public class Group {
 
     @Id
@@ -19,6 +20,11 @@ public class Group {
     @Column(unique = true)
     private String groupName;
 
-    @Column(unique = true)
-    private String hashUser;
+    @ManyToMany
+    private List<User> users;
+
+    public void addUser(User user) {
+        this.users.add(user);
+        user.getGroups().add(this);
+    }
 }

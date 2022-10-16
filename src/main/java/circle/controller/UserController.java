@@ -23,4 +23,9 @@ public class UserController {
         return new ResponseEntity<>(this.userService.userToCreate(name, hashUser), HttpStatus.CREATED);
     }
 
+    @GetMapping("/hash")
+    public ResponseEntity<User> userToFindByHash(@RequestParam @Valid String hashUser){
+        return new ResponseEntity<>(this.userService.userToFindByHash(hashUser), HttpStatus.CREATED);
+    }
+
 }
