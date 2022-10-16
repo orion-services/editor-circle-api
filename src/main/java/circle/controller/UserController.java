@@ -25,7 +25,12 @@ public class UserController {
 
     @GetMapping("/hash")
     public ResponseEntity<User> userToFindByHash(@RequestParam @Valid String hashUser){
-        return new ResponseEntity<>(this.userService.userToFindByHash(hashUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.userService.userToFindByHash(hashUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/email")
+    public ResponseEntity<User> userToFindByEmail(@RequestParam @Valid String email){
+        return new ResponseEntity<>(this.userService.userToFindByEmail(email), HttpStatus.OK);
     }
 
 }

@@ -26,4 +26,15 @@ public class GroupService {
         return group;
     }
 
+    public Group groupToFindByName(@FormParam("groupName") final String groupName) {
+        return groupRepository.findByGroupName(groupName);
+    }
+
+    public Group groupToJoin(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
+        final Group group = groupToFindByName(groupName);
+        group.setUsers(List.of(userService.userToFindByHash(hashUser)));
+        groupRepository.save(group);
+        return group;
+    }
+
 }
