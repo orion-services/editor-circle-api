@@ -17,13 +17,11 @@ package circle.model;
  * limitations under the License.
  */
 
-import java.security.SecureRandom;
-import java.util.Base64;
-import java.util.Base64.Encoder;
 import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,28 +38,19 @@ public class User {
     private String name;
 
     @Column(unique = true)
+    @JsonIgnore
     private String email;
 
     @Column(unique = true)
     private String hashUser;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "users")
+    @JsonIgnore
     private List<Group> groups;
 
-
-    public void addGroup(Group group) {
-        this.groups.add(group);
-        group.getUsers().add(this);
-    }
-
-    public String generateHash() {
-        SecureRandom random = new SecureRandom();
-        byte bytes[] = new byte[6];
-        random.nextBytes(bytes);
-        Encoder encoder = Base64.getUrlEncoder().withoutPadding();
-        String hash = encoder.encodeToString(bytes);
-        return hash;
-    }
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Activity> activities;
 
 
 

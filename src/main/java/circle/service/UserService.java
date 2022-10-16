@@ -47,6 +47,9 @@ public class UserService {
         return user;
     }
 
-
-
+    public User userToFindByEmail(@FormParam("email") final String email) {
+        final User user = userRepository.findByEmail(email);
+        user.setEmail(email);
+        return user;
+    }
 }

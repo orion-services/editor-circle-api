@@ -1,5 +1,6 @@
 package circle.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "_Group")
+@Table(name = "_group")
 public class Group {
 
     @Id
@@ -21,10 +22,14 @@ public class Group {
     private String groupName;
 
     @ManyToMany
+    @JoinTable(
+            name = "group_user",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
-    public void addUser(User user) {
-        this.users.add(user);
-        user.getGroups().add(this);
-    }
+    @OneToMany(mappedBy = "group")
+    @JsonIgnore
+    private List<Activity> activities;
+
 }
