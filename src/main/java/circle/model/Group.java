@@ -23,8 +23,4 @@ public class Group {
     @ManyToMany
     private List<User> users;
 
-    public void addUser(User user) {
-        this.users.add(user);
-        user.getGroups().add(this);
-    }
 }

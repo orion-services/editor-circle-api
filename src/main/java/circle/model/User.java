@@ -49,11 +49,6 @@ public class User {
     private List<Group> groups;
 
 
-    public void addGroup(Group group) {
-        this.groups.add(group);
-        group.getUsers().add(this);
-    }
-
     public String generateHash() {
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[6];
