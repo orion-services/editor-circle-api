@@ -32,20 +32,23 @@ import javax.ws.rs.core.MediaType;
 //import circle.model.Status;
 //import circle.model.Status.StatusEnum;
 import circle.model.User;
-@RequestScoped
-@Path("/api/v1/")
+import circle.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
 
-    @POST
-    @Path("userToCreate")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public User userToCreate(@FormParam("name") final String name, @FormParam("hashUser") final String hashUser) throws WebApplicationException{
             final User user = new User();
             user.setHashUser(hashUser);
             user.setName(name);
-            //userRepository.persist(user);
+            userRepository.save(user);
         return user;
     }
 

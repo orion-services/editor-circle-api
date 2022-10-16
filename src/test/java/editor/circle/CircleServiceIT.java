@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package editor.service;
+package circle.service;
 
 import static io.restassured.RestAssured.given;
 
@@ -28,7 +28,7 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
-class EditorServiceIT {
+class CircleServiceIT {
 
   @Test
   @Order(1)
@@ -38,7 +38,7 @@ class EditorServiceIT {
         .when()
         .formParam("name", "Guilherme")
         .formParam("hashUser", "#1")
-        .post("/circle/api/v1/userToCreate")
+        .post("/circle/api/v1/user")
         .then()
         .statusCode(200);
   }
