@@ -34,10 +34,16 @@ public class UserService {
     }
 
     public User userToCreate(@FormParam("name") final String name, @FormParam("hashUser") final String hashUser) {
-            final User user = new User();
-                user.setHashUser(hashUser);
-                user.setName(name);
-                userRepository.save(user);
+        final User user = new User();
+        user.setHashUser(hashUser);
+        user.setName(name);
+        userRepository.save(user);
+        return user;
+    }
+
+    public User userToFindByHash(@FormParam("hashUser") final String hashUser) {
+        final User user = userRepository.findByHashUser(hashUser);
+        user.setHashUser(hashUser);
         return user;
     }
 

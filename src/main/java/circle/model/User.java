@@ -20,12 +20,9 @@ package circle.model;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Base64.Encoder;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -48,17 +45,24 @@ public class User {
     @Column(unique = true)
     private String hashUser;
 
+    @ManyToMany
+    private List<Group> groups;
 
+
+    public void addGroup(Group group) {
+        this.groups.add(group);
+        group.getUsers().add(this);
+    }
 
     public String generateHash() {
         SecureRandom random = new SecureRandom();
-            byte bytes[] = new byte[6];
-            random.nextBytes(bytes);
-            Encoder encoder = Base64.getUrlEncoder().withoutPadding();
-            String hash = encoder.encodeToString(bytes);
+        byte bytes[] = new byte[6];
+        random.nextBytes(bytes);
+        Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+        String hash = encoder.encodeToString(bytes);
         return hash;
     }
 
 
-   
+
 }
