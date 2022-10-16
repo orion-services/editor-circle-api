@@ -18,19 +18,8 @@ package circle.service;
  */
 
 
-import javax.enterprise.context.RequestScoped;
-import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 
-//import circle.model.Activity;
-//import circle.model.Status;
-//import circle.model.Status.StatusEnum;
+import javax.ws.rs.FormParam;
 import circle.model.User;
 import circle.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -44,11 +33,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User userToCreate(@FormParam("name") final String name, @FormParam("hashUser") final String hashUser) throws WebApplicationException{
+    public User userToCreate(@FormParam("name") final String name, @FormParam("hashUser") final String hashUser) {
             final User user = new User();
-            user.setHashUser(hashUser);
-            user.setName(name);
-            userRepository.save(user);
+                user.setHashUser(hashUser);
+                user.setName(name);
+                userRepository.save(user);
         return user;
     }
 
