@@ -44,7 +44,7 @@ public class User {
     @Column(unique = true)
     private String hashUser;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany
     @JsonIgnore
     private List<Group> groups;
 

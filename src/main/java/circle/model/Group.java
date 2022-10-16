@@ -22,10 +22,6 @@ public class Group {
     private String groupName;
 
     @ManyToMany
-    @JoinTable(
-            name = "group_user",
-            joinColumns = @JoinColumn(name = "group_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     @OneToMany(mappedBy = "group")
