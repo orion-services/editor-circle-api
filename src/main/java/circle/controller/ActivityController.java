@@ -29,9 +29,9 @@ public class ActivityController {
         return new ResponseEntity<>(this.activityService.activityToFindByName(groupName), HttpStatus.OK);
     }
 
-    @PutMapping("/join")
-    public ResponseEntity<Activity> activityToJoin(@RequestParam @Valid String groupName, @RequestParam @Valid String hashUser){
-        return new ResponseEntity<>(this.activityService.activityToJoin(groupName, hashUser), HttpStatus.OK);
+    @PutMapping("/add")
+    public ResponseEntity<Activity> activityToAddUser(@RequestParam @Valid String groupName, @RequestParam @Valid String hashUser){
+        return new ResponseEntity<>(this.activityService.activityToAddUser(groupName, hashUser), HttpStatus.OK);
     }
 
     @PutMapping("/participate")

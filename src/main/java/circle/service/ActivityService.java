@@ -33,7 +33,7 @@ public class ActivityService {
         return activity;
     }
 
-    public Activity activityToJoin(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
+    public Activity activityToAddUser(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
         final Activity activity = activityToFindByName(groupName);
         activity.setUser(userService.userToFindByHash(hashUser));
         activityRepository.save(activity);
@@ -41,7 +41,7 @@ public class ActivityService {
     }
 
     public String activityToParticipate(@FormParam("hashUser") final String hashUser, @FormParam("groupName") final String groupName) {
-        final Activity activity = activityToJoin(hashUser, groupName);
+        final Activity activity = activityToAddUser(groupName, hashUser);
         return "content url";
     }
 }
