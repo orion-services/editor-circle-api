@@ -35,7 +35,7 @@ public class ActivityController {
     }
 
     @PutMapping("/participate")
-    public ResponseEntity<String> activityToParticipate(@RequestParam @Valid String hashUser, @RequestParam @Valid String groupName) {
+    public ResponseEntity<Activity> activityToParticipate(@RequestParam @Valid String hashUser, @RequestParam @Valid String groupName) {
         return new ResponseEntity<>(this.activityService.activityToParticipate(hashUser, groupName), HttpStatus.OK);
     }
 }

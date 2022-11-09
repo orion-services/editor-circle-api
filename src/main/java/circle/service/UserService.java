@@ -54,8 +54,10 @@ public class UserService {
     }
 
     public User userToFindByEmail(@FormParam("email") final String email) {
-        final User user = userRepository.findByEmail(email);
-        user.setEmail(email);
-        return user;
+        final Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
+        if (user.isEmpty()){
+            throw new NotFoundException("Email not found");
+        }
+        return user.get();
     }
 }

@@ -41,8 +41,7 @@ public class ActivityService {
         return activity;
     }
 
-    public String activityToParticipate(@FormParam("hashUser") final String hashUser, @FormParam("groupName") final String groupName) {
-        final Activity activity = activityToAddUser(groupName, hashUser);
-        return "content url";
+    public Activity activityToParticipate(@FormParam("hashUser") final String hashUser, @FormParam("groupName") final String groupName) {
+        return activityToAddUser(groupName, hashUser);
     }
 }
