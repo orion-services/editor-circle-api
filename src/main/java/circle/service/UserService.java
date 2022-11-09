@@ -20,9 +20,13 @@ package circle.service;
 
 
 import javax.ws.rs.FormParam;
+
+import circle.exception.NotFoundException;
 import circle.model.User;
 import circle.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -42,9 +46,11 @@ public class UserService {
     }
 
     public User userToFindByHash(@FormParam("hashUser") final String hashUser) {
-        final User user = userRepository.findByHashUser(hashUser);
-        user.setHashUser(hashUser);
-        return user;
+        final Optional<User> user = Optional.ofNullable(userRepository.findByHashUser(hashUser));
+        if (user.isEmpty()) {
+            throw new NotFoundException("User not found");
+        }
+        return user.get();
     }
 
     public User userToFindByEmail(@FormParam("email") final String email) {
