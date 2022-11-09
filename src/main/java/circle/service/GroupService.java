@@ -27,7 +27,9 @@ public class GroupService {
     }
 
     public Group groupToFindByName(@FormParam("groupName") final String groupName) {
-        return groupRepository.findByGroupName(groupName);
+        final Group group = groupRepository.findByGroupName(groupName);
+        group.setGroupName(groupName);
+        return group;
     }
 
     public Group groupToJoin(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {

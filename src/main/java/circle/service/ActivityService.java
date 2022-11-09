@@ -35,6 +35,7 @@ public class ActivityService {
 
     public Activity activityToAddUser(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
         final Activity activity = activityToFindByName(groupName);
+        activity.setGroup(groupService.groupToFindByName(groupName));
         activity.setUser(userService.userToFindByHash(hashUser));
         activityRepository.save(activity);
         return activity;
