@@ -38,26 +38,26 @@ public class UserService {
     }
 
     public User userToCreate(@FormParam("name") final String name, @FormParam("hashUser") final String hashUser) {
-        final User user = new User();
-        user.setHashUser(hashUser);
-        user.setName(name);
-        userRepository.save(user);
-        return user;
+        final User createUser = new User();
+        createUser.setHashUser(hashUser);
+        createUser.setName(name);
+        userRepository.save(createUser);
+        return createUser;
     }
 
     public User userToFindByHash(@FormParam("hashUser") final String hashUser) {
-        final Optional<User> user = Optional.ofNullable(userRepository.findByHashUser(hashUser));
-        if (user.isEmpty()) {
+        final Optional<User> findUser = Optional.ofNullable(userRepository.findByHashUser(hashUser));
+        if (findUser.isEmpty()) {
             throw new NotFoundException("User not found");
         }
-        return user.get();
+        return findUser.get();
     }
 
     public User userToFindByEmail(@FormParam("email") final String email) {
-        final Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
-        if (user.isEmpty()){
+        final Optional<User> findUser = Optional.ofNullable(userRepository.findByEmail(email));
+        if (findUser.isEmpty()){
             throw new NotFoundException("Email not found");
         }
-        return user.get();
+        return findUser.get();
     }
 }

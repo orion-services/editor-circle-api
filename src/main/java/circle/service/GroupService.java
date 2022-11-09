@@ -21,26 +21,26 @@ public class GroupService {
     }
 
     public Group groupToCreate(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
-        final Group group = new Group();
-        group.setUsers(List.of(userService.userToFindByHash(hashUser)));
-        group.setGroupName(groupName);
-        groupRepository.save(group);
-        return group;
+        final Group createGroup = new Group();
+        createGroup.setUsers(List.of(userService.userToFindByHash(hashUser)));
+        createGroup.setGroupName(groupName);
+        groupRepository.save(createGroup);
+        return createGroup;
     }
 
     public Group groupToFindByName(@FormParam("groupName") final String groupName) {
-        final Optional<Group> group = Optional.ofNullable(groupRepository.findByGroupName(groupName));
-        if (group.isEmpty()){
+        final Optional<Group> findGroup = Optional.ofNullable(groupRepository.findByGroupName(groupName));
+        if (findGroup.isEmpty()){
             throw new NotFoundException("Group not found");
         }
-        return group.get();
+        return findGroup.get();
     }
 
     public Group groupToJoin(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
-        final Group group = groupToFindByName(groupName);
-        group.setUsers(List.of(userService.userToFindByHash(hashUser)));
-        groupRepository.save(group);
-        return group;
+        final Group joinGroup = groupToFindByName(groupName);
+        joinGroup.setUsers(List.of(userService.userToFindByHash(hashUser)));
+        groupRepository.save(joinGroup);
+        return joinGroup;
     }
 
 }

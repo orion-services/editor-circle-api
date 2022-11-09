@@ -15,9 +15,9 @@ public class ContentService {
     }
 
     public Content contentToCreate(@FormParam("dataContent") final String dataContent) {
-        final Content content = new Content();
-        content.setDataContent(dataContent);
-        contentRepository.save(content);
-        return content;
+        final Content createContent = new Content();
+        createContent.setDataContent(dataContent);
+        contentRepository.save(createContent);
+        return createContent;
     }
 }

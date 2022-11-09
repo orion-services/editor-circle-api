@@ -21,24 +21,24 @@ public class ActivityService {
     }
 
     public Activity activityToCreate(@FormParam("groupName") final String groupName) {
-        final Activity activity = new Activity();
-        activity.setGroup(groupService.groupToFindByName(groupName));
-        activityRepository.save(activity);
-        return activity;
+        final Activity createActivity = new Activity();
+        createActivity.setGroup(groupService.groupToFindByName(groupName));
+        activityRepository.save(createActivity);
+        return createActivity;
     }
 
     public Activity activityToFindByName(@FormParam("groupName") final String groupName) {
-        final Activity activity = new Activity();
-        activity.setGroup(groupService.groupToFindByName(groupName));
-        return activity;
+        final Activity findActivity = new Activity();
+        findActivity.setGroup(groupService.groupToFindByName(groupName));
+        return findActivity;
     }
 
     public Activity activityToAddUser(@FormParam("groupName") final String groupName, @FormParam("hashUser") final String hashUser) {
-        final Activity activity = activityToFindByName(groupName);
-        activity.setGroup(groupService.groupToFindByName(groupName));
-        activity.setUser(userService.userToFindByHash(hashUser));
-        activityRepository.save(activity);
-        return activity;
+        final Activity addActivity = activityToFindByName(groupName);
+        addActivity.setGroup(groupService.groupToFindByName(groupName));
+        addActivity.setUser(userService.userToFindByHash(hashUser));
+        activityRepository.save(addActivity);
+        return addActivity;
     }
 
     public Activity activityToParticipate(@FormParam("hashUser") final String hashUser, @FormParam("groupName") final String groupName) {
