@@ -21,8 +21,8 @@ import javax.enterprise.context.ApplicationScoped;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import dev.orion.circle.model.User;
-import dev.orion.circle.repository.Repository;
 import dev.orion.circle.repository.UserRepository;
+import dev.orion.circle.repository.UserRepositoryImpl;
 import io.smallrye.mutiny.Uni;
 
 /**
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     private static final int SIZE_PASSWORD = 8;
 
     /** User repository. */
-    private final Repository repository = new UserRepository();
+    private final UserRepository userRepository = new UserRepositoryImpl();
 
 
     @Override
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 throw new IllegalArgumentException(
                         "Password less than eight characters");
             } else {
-                user = repository.createUser(name,
+                user = userRepository.createUser(name,
                         DigestUtils.sha256Hex(password));
             }
         }

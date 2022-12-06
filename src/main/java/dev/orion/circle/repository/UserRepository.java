@@ -16,45 +16,17 @@
  */
 package dev.orion.circle.repository;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import dev.orion.circle.model.User;
-import io.quarkus.hibernate.reactive.panache.Panache;
+import io.quarkus.hibernate.reactive.panache.PanacheRepository;
 import io.smallrye.mutiny.Uni;
 
 /**
- * Implements the repository pattern for the user entity.
+ * User repository interface.
  */
-@ApplicationScoped
-public class UserRepository implements Repository {
+public interface UserRepository extends PanacheRepository<User> {
 
 
-    @Override
-    public Uni<User> createUser(final String name,
-            final String password) {
-         return checkName(name)
-                            .onItem().ifNotNull()
-                                .failWith(new IllegalArgumentException(
-                                    "The name already existis"))
-                            .onItem().ifNull()
-                                .switchTo(() -> persistUser(
-                                    name, password));
-                }
-
-
-    private Uni<User> checkName(final String email) {
-        return find("name", email).firstResult();
-    }
-
-
-    private Uni<User> persistUser(final String name,
-            final String password) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        return Panache.<User>withTransaction(user::persist);
-    }
-
+    Uni<User> createUser(String name, String password);
 
 
 }
